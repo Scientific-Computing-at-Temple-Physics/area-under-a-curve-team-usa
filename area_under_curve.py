@@ -28,6 +28,18 @@ def parabola_area(intervals, x1, x2):
   integral = 0 #need to calculte exact integral value
   return area, integral 
 
+def complicated_area(intervals,x1,x2):
+	a = 1	
+	m = 3
+	b = 2
+	area = 0
+	base = (x2-x1)/intervals
+	for i in range(1,intervals+1):
+		height = (a*base*(i-.5) + b)*(ma.e)**(-c*base*(i-.5)) #for y=x
+		area  = height*base + area
+	integral = -(ma.e)**(-c*x2)(a+b*c+a*c*x2)/c**2+(ma.e)**(-c*x1)(a+b*c+a*c*x1)/c**2
+	return area, integral
+
 
 intervals = int(input("Enter the number of rectangles to use:"))
 
