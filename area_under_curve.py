@@ -2,6 +2,7 @@
 #Eric and Marcus
 
 import numpy as np
+import math as ma
 
 def line_area(intervals,x1,x2):
   m=3
@@ -25,19 +26,21 @@ def parabola_area(intervals, x1, x2):
     x = base*(i-.5)
     height = a*(x**2) + b*x + c
     area  = height*base + area
-  integral = 0 #need to calculte exact integral value
+  integral = (a/3.0)*(x2**3-x1**3) + (b/2.0)*(x2**2-x1**2) + c*(x2-x1)
   return area, integral 
 
-def complicated_area(intervals,x1,x2):
+def exp_area(intervals,x1,x2):
 	a = 1	
 	m = 3
 	b = 2
+	c=3
 	area = 0
 	base = (x2-x1)/intervals
 	for i in range(1,intervals+1):
-		height = (a*base*(i-.5) + b)*(ma.e)**(-c*base*(i-.5)) #for y=x
-		area  = height*base + area
-	integral = -(ma.e)**(-c*x2)(a+b*c+a*c*x2)/c**2+(ma.e)**(-c*x1)(a+b*c+a*c*x1)/c**2
+	  x=base*(i-.5)
+	  height = (a*x + b)*(ma.exp(-c*x))
+	  area  = height*base + area
+	integral = -ma.exp(-c*x2)*(a+b*c+a*c*x2)/c**2+ma.exp(-c*x1)*(a+b*c+a*c*x1)/c**2
 	return area, integral
 
 
@@ -45,10 +48,34 @@ intervals = int(input("Enter the number of rectangles to use:"))
 
 x1=0
 x2=5
-rectangle_line_area, integral_line = line_area(intervals,x1,x2)
-rectangle_parabola_area, integral_parabola = parabola_area(intervals,x1,x2)
+i=1
+rectangle_line_area, integral_line = line_area(i,x1,x2)
+rectangle_parabola_area, integral_parabola = parabola_area(i,x1,x2)
+rectangle_exp_area, integral_exp = exp_area(i,x1,x2)
+line_difference = ma.fabs((rectangle_line_area-integral_line)/integral_line)*100
+parabola_difference = ma.fabs((rectangle_parabola_area-integral_parabola)/integral_parabola)*100
+exp_difference = ma.fabs((rectangle_exp_area-integral_exp)/integral_exp)*100
+
+n=np.array([i])
+line_error = np.array([line_difference])
+parabola_error = np.array([parabola_difference])
+exp_error = np.array([exp_difference])
 
 
+while i <= 100:
+  i += 1
+  rectangle_line_area, integral_line = line_area(i,x1,x2)
+  rectangle_parabola_area, integral_parabola = parabola_area(i,x1,x2)
+  rectangle_exp_area, integral_exp = exp_area(i,x1,x2)
+  line_difference = ma.fabs((rectangle_line_area-integral_line)/integral_line)*100
+  parabola_difference = ma.fabs((rectangle_parabola_area-integral_parabola)/integral_parabola)*100
+  exp_difference = ma.fabs((rectangle_exp_area-integral_exp)/integral_exp)*100
+  
+  """n = np.append(n,i)
+  line_error = np.append(line_error,line_difference)
+  parabola_error = np.append(parabola_error,parabola_difference)
+  exp_error = np.append(exp_error,exp_difference)"""
+  
 
 #do some sort of loop to estimate area with a variety for the number of rectangles for each of the 3 functions
 #in (x,y) 2D array, keep appending the values of (n, E(n)) where E(n) is the error for a given number of rectangles
