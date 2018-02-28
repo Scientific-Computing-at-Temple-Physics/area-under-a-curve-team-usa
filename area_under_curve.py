@@ -63,8 +63,8 @@ line_error = np.array([line_difference])
 parabola_error = np.array([parabola_difference])
 exp_error = np.array([exp_difference])
 
-
-while i <= 100:
+#Calculate Areas, Integrals and then Errors for each function for n from 1 to given number. 
+while i < 100:
   i += 1
   rectangle_line_area, integral_line = line_area(i,x1,x2)
   rectangle_parabola_area, integral_parabola = parabola_area(i,x1,x2)
@@ -76,7 +76,7 @@ while i <= 100:
   line_error = np.append(line_error,line_difference)
   parabola_error = np.append(parabola_error,parabola_difference)
   exp_error = np.append(exp_error,exp_difference)
-print line_error
+
 #Plot the Error in the estimate as a function of each type of function
 
 plot.figure()
