@@ -80,19 +80,18 @@ while i < 100:
 #Plot the Error in the estimate as a function of each type of function
 
 plot.figure()
-plot.yscale('log')
 plot.title("Error in Riemann Sum Estimate for a Line")
-plot.plot(n,line_error)
+plot.scatter(n,line_error)
 plot.show()
 
 plot.figure()
 plot.title("Error in Riemann Sum Estimate for a Quadratic Function")
-plot.plot(n,parabola_error)
+plot.scatter(n,parabola_error)
 plot.show()
 
 
 plot.figure()
 plot.title("Error in Riemann Sum Estimate for a Exponential Function")
-plot.plot(n,exp_error)
+plot.scatter(n,exp_error)
 plot.show()
   #need to fix issue with computer rounding error for linear plot since it is perfect estimate everytime (get values for error on order of 10^(-13)
