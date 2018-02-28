@@ -46,8 +46,8 @@ def exp_area(intervals,x1,x2):
 
 #intervals = int(input("Enter the number of rectangles to use:"))
 
-x1=0
-x2=10
+x1=0.0
+x2=10.0 #need to be a float here (or make it a float inside the functions): integer divison sucks
 i=1
 rectangle_line_area, integral_line = line_area(i,x1,x2)
 rectangle_parabola_area, integral_parabola = parabola_area(i,x1,x2)
