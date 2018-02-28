@@ -7,13 +7,13 @@ import matplotlib as mpl
 import matplotlib.pyplot as plot
 
 def line_area(intervals,x1,x2):
-  m=3
-  b=2
-  area  = 0
+  m=3.0
+  b=2.0
+  area  = 0.0
   base = (x2-x1)/intervals
   for i in range(1,intervals+1):
     x = base*(i-.5)
-    height = m*x+ b 
+    height = m*x+ b
     area  = height*base + area
   integral = .5*m*(x2**2-x1**2)+b*(x2-x1)
   return area, integral
@@ -29,10 +29,10 @@ def parabola_area(intervals, x1, x2):
     height = a*(x**2) + b*x + c
     area  = height*base + area
   integral = (a/3.0)*(x2**3-x1**3) + (b/2.0)*(x2**2-x1**2) + c*(x2-x1)
-  return area, integral 
+  return area, integral
 
 def exp_area(intervals,x1,x2):
-	a = 1	
+	a = 1
 	m = 3
 	b = 2
 	c=3
@@ -48,8 +48,8 @@ def exp_area(intervals,x1,x2):
 
 #intervals = int(input("Enter the number of rectangles to use:"))
 
-x1=0
-x2=5
+x1=0.0
+x2=5.0
 i=1
 rectangle_line_area, integral_line = line_area(i,x1,x2)
 rectangle_parabola_area, integral_parabola = parabola_area(i,x1,x2)
@@ -72,25 +72,27 @@ while i <= 100:
   line_difference = ma.fabs((rectangle_line_area-integral_line)/integral_line)*100
   parabola_difference = ma.fabs((rectangle_parabola_area-integral_parabola)/integral_parabola)*100
   exp_difference = ma.fabs((rectangle_exp_area-integral_exp)/integral_exp)*100
-  n = np.append(n,i) 
+  n = np.append(n,i)
   line_error = np.append(line_error,line_difference)
   parabola_error = np.append(parabola_error,parabola_difference)
   exp_error = np.append(exp_error,exp_difference)
-  
+print line_error
 #Plot the Error in the estimate as a function of each type of function
-  
+
 plot.figure()
+plot.yscale('log')
 plot.title("Error in Riemann Sum Estimate for a Line")
 plot.plot(n,line_error)
 plot.show()
 
-plot.figure()   
+plot.figure()
 plot.title("Error in Riemann Sum Estimate for a Quadratic Function")
 plot.plot(n,parabola_error)
 plot.show()
 
 
-plot.figure() 
+plot.figure()
 plot.title("Error in Riemann Sum Estimate for a Exponential Function")
 plot.plot(n,exp_error)
 plot.show()
+  #need to fix issue with computer rounding error for linear plot since it is perfect estimate everytime (get values for error on order of 10^(-13)
