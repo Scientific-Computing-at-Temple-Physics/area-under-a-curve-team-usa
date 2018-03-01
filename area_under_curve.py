@@ -82,16 +82,19 @@ while i < 100:
 plot.figure()
 plot.title("Error in Riemann Sum Estimate for a Line")
 plot.scatter(n,line_error)
+plot.plot(n,line_error)
 plot.show()
 
 plot.figure()
 plot.title("Error in Riemann Sum Estimate for a Quadratic Function")
 plot.scatter(n,parabola_error)
+plot.plot(n,parabola_error)
 plot.show()
 
 
 plot.figure()
 plot.title("Error in Riemann Sum Estimate for a Exponential Function")
 plot.scatter(n,exp_error)
+plot.plot(n,exp_error)
 plot.show()
   #need to fix issue with computer rounding error for linear plot since it is perfect estimate everytime (get values for error on order of 10^(-13)
